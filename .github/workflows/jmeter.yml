@@ -1,0 +1,68 @@
+---
+name: Jmeter performance test
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Jmeter-script-model01/**
+      - .github/workflow/jmeter.yml
+    pull_request: branches:[main]
+    workflow_dispatch:
+      inputs:
+        scripts:
+          description: path to the jmx script
+          default: jmeter_scripts/bank.jmx
+          required: true
+env: JMETER_VERSION:'5.6.3' JMX_FILE:${[ gitHub.event.inputs.script ||
+  'jmeter_scripts/bank.jmx']}
+jobs:
+  jmeter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Cache Jmeter
+        id: cache jmeter
+        uses: actions/cache@v4
+        with:
+          path: apache-jmeter-${{ env.JMETER_VERSION}}
+          key: jmeter-${{ env.JMETER_VERSION}}
+
+      - name: Download Jmeter
+        if: steps.cache-jmeter.output.cache-hit != 'true'
+        run: >
+          curl -sSL -o -jmeter.tgz \
+          https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$(JMETER_VERSION).tgz
+              tar -xzf jmeter.tgz
+
+      - name: RUN JMeter test
+        run: |
+          mkdir -p results
+            apache-jmeter-${JMETER_VERSION}/bin/jmeter -n \
+              -t "$JMX_FILE" \
+              -l results/results.jtl \
+              -j results/jmeter.log \
+              -e -o results/html-report
+     
+      - name: Fail on sampler errors
+        run: >
+          errors=$(awk -F',' 'NR>1 && $8=="false"' results/results.jtl | wc -l)
+          total=$(($(wc -l < results/results.jtl) -l))
+          echo  "Samples: $total, Errors: $errors"
+          echo "### Jmeter; $total samples, $errors errors" >> "$GITHUB_STEP_SUMMARY"
+         if ["$errors" -gt 0 ]; then exit 1; fi
+
+      - name: Upload Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmeter-results
+          path: results/
