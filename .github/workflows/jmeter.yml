@@ -50,7 +50,8 @@ jobs:
               -t "$JMX_FILE" \
               -l results/results.jtl \
               -j results/jmeter.log \
-              -e -o results/html-report
+              -e \ 
+              -o results/html-report
       - name: Fail on sampler errors
         run: >
           errors=$(awk -F',' 'NR>1 && $8=="false"' results/results.jtl | wc -l)
