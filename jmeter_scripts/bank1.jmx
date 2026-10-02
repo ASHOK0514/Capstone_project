@@ -23,6 +23,11 @@
             <stringProp name="Argument.value">https</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="filepath" elementType="Argument">
+            <stringProp name="Argument.name">filepath</stringProp>
+            <stringProp name="Argument.value">${__P(csv_path,users.txt)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -52,9 +57,9 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller"/>
+        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="T01_launch">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="T01_launch" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
@@ -653,7 +658,7 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">5000</stringProp>
@@ -665,12 +670,12 @@
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="T02_login">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="T02_login" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="T02_login-29">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="T02_login-29" enabled="true">
               <stringProp name="HTTPSampler.domain">advantageonlinebanking.com</stringProp>
               <stringProp name="HTTPSampler.port">443</stringProp>
               <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
@@ -690,7 +695,7 @@
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Sec-Fetch-Mode" elementType="Header">
                     <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
@@ -742,7 +747,7 @@
               <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config">
                 <stringProp name="delimiter">,</stringProp>
                 <stringProp name="fileEncoding"></stringProp>
-                <stringProp name="filename">H:/Jmeter_Scripts/New Text Document.txt</stringProp>
+                <stringProp name="filename">${filepath}</stringProp>
                 <boolProp name="ignoreFirstLine">true</boolProp>
                 <boolProp name="quotedData">false</boolProp>
                 <boolProp name="recycle">true</boolProp>
@@ -2075,7 +2080,7 @@ Ha/J[S]@${scheme}://apis.google.com/js/api.js:24:129
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ProxyControl guiclass="ProxyControlGui" testclass="ProxyControl" testname="HTTP(S) Test Script Recorder">
+      <ProxyControl guiclass="ProxyControlGui" testclass="ProxyControl" testname="HTTP(S) Test Script Recorder" enabled="true">
         <stringProp name="ProxyControlGui.port">8888</stringProp>
         <collectionProp name="ProxyControlGui.exclude_list">
           <stringProp name="1179605444">(?i).*\.(bmp|css|js|gif|ico|jpe?g|png|swf|eot|otf|ttf|mp4|woff|woff2)</stringProp>
