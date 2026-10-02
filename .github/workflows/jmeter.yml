@@ -15,7 +15,7 @@ on:
           default: jmeter_scripts/bank.jmx
           required: true
 env: 
-  JMETER_VERSION:'5.6.3' 
+  JMETER_VERSION: '5.6.3' 
   JMX_FILE:${[ gitHub.event.inputs.script || 'jmeter_scripts/bank.jmx']}
 jobs:
   jmeter:
