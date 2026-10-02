@@ -14,8 +14,9 @@ on:
           description: path to the jmx script
           default: jmeter_scripts/bank.jmx
           required: true
-env: JMETER_VERSION:'5.6.3' JMX_FILE:${[ gitHub.event.inputs.script ||
-  'jmeter_scripts/bank.jmx']}
+env: 
+  JMETER_VERSION:'5.6.3' 
+  JMX_FILE:${[ gitHub.event.inputs.script || 'jmeter_scripts/bank.jmx']}
 jobs:
   jmeter:
     runs-on: ubuntu-latest
